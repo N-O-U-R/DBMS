@@ -12,7 +12,7 @@ namespace DBMS
 {
     public partial class Form1 : Form
     {
-        private NpgsqlConnection conn = new NpgsqlConnection("Server=localhost;Port=5432;Database=Final Sample;User Id=postgres;Password=1234;");
+        private NpgsqlConnection conn = new NpgsqlConnection("Server=localhost;Port=5432;Database=Test;User Id=postgres;Password=1234;");
         private NpgsqlCommand cmd = new NpgsqlCommand();
         private string sql = null;
 
@@ -23,7 +23,7 @@ namespace DBMS
         {
             conn.Open();
             
-            sql = @"select * from customer_list";
+            sql = @"select * from public.customer_list";
             cmd = new NpgsqlCommand(sql, conn);
 
             
@@ -33,7 +33,7 @@ namespace DBMS
             customerView.DataSource = dt1;
 
             
-            sql = "select * from film_list";
+            sql = "select * from public.film_list";
             cmd = new NpgsqlCommand(sql, conn);
 
             DataTable dt2 = new DataTable();
@@ -47,7 +47,7 @@ namespace DBMS
         private void deleteCustomer(int cid)
         {
             conn.Open();
-            sql = @"call delete_customer(" +cid + ")";
+            sql = @"call public.delete_customer(" +cid + ")";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -56,7 +56,7 @@ namespace DBMS
         private void deleteFilm(int fid)
         {
             conn.Open();
-            sql = @"call delete_film("+ fid + ")";
+            sql = @"call public.delete_film("+ fid + ")";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -78,7 +78,7 @@ namespace DBMS
         private void fInsertBtn_Click(object sender, EventArgs e)
         {
             conn.Open();
-            sql = @"call film_insert('" + iTitleTxtBox.Text + "','" + iCategoryTxtBox.Text + "','" + iActorFnameBox.Text + "','" + iActorLnameBox.Text + "'," + iYearTxtBox.Text + ",'" + iRatingCombo.Text + "'," + iLengthTxtBox.Text + ",'" + iDescTxtBox.Text + "')";
+            sql = @"call public.film_insert('" + iTitleTxtBox.Text + "','" + iCategoryTxtBox.Text + "','" + iActorFnameBox.Text + "','" + iActorLnameBox.Text + "'," + iYearTxtBox.Text + ",'" + iRatingCombo.Text + "'," + iLengthTxtBox.Text + ",'" + iDescTxtBox.Text + "')";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteReaderAsync();
             MessageBox.Show("Data Inserted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -91,7 +91,7 @@ namespace DBMS
         private void cInsertBtn_Click(object sender, EventArgs e)
         { 
             conn.Open();
-            sql = @"call customer_insert('" + iFnameTxtBox.Text + "','" + iLnameTxtBox.Text + "','" + iEmailTxtBox.Text + "','" + iPhoneTxtBox.Text + "','" + iCityTxtBox.Text + "','" + iCountryTxtBox.Text + "','" + iZipcodTxtBox.Text + "','" +iAddressTxtBox.Text + "')";
+            sql = @"call public.customer_insert('" + iFnameTxtBox.Text + "','" + iLnameTxtBox.Text + "','" + iEmailTxtBox.Text + "','" + iPhoneTxtBox.Text + "','" + iCityTxtBox.Text + "','" + iCountryTxtBox.Text + "','" + iZipcodTxtBox.Text + "','" +iAddressTxtBox.Text + "')";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteReaderAsync();
             MessageBox.Show("Data Inserted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -143,7 +143,7 @@ namespace DBMS
         {
             
             conn.Open();
-            sql = @"call film_update('" + uTitleTxtBox.Text + "','" + uCategoryTxtBox.Text + "','" + uActorFnameBox.Text + "','" + uActorLnameBox.Text + "'," + uRYearTxtBox.Text + ",'" + uRatingBox.Text + "'," + uLengthBox.Text + ",'" + uDescBox.Text + "',"+filmView.Rows[i].Cells[0].Value+")";
+            sql = @"call public.film_update('" + uTitleTxtBox.Text + "','" + uCategoryTxtBox.Text + "','" + uActorFnameBox.Text + "','" + uActorLnameBox.Text + "'," + uRYearTxtBox.Text + ",'" + uRatingBox.Text + "'," + uLengthBox.Text + ",'" + uDescBox.Text + "',"+filmView.Rows[i].Cells[0].Value+")";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteReaderAsync();
             MessageBox.Show("Data Updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -167,7 +167,7 @@ namespace DBMS
         private void cUpdateBtn_Click(object sender, EventArgs e)
         {
             conn.Open();
-            sql = @"call customer_update('" + uFNameBox.Text + "','" + ULNameBox.Text + "','" + uEmailBox.Text + "','" + uPhoneBox.Text + "','" + uCityBox.Text + "','" + uCountryBox.Text + "','" + uZCodeBox.Text + "','" + uAddressBox.Text + "'," + customerView.Rows[i].Cells[0].Value + ")";
+            sql = @"call public.customer_update('" + uFNameBox.Text + "','" + ULNameBox.Text + "','" + uEmailBox.Text + "','" + uPhoneBox.Text + "','" + uCityBox.Text + "','" + uCountryBox.Text + "','" + uZCodeBox.Text + "','" + uAddressBox.Text + "'," + customerView.Rows[i].Cells[0].Value + ")";
             cmd = new NpgsqlCommand(sql, conn);
             cmd.ExecuteReaderAsync();
             MessageBox.Show("Data Updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -180,32 +180,32 @@ namespace DBMS
 
         private void fSearcgBtn_Click(object sender, EventArgs e)
         {
-            sql = "select * from film_list";
+            sql = "select * from public.film_list";
             cmd = new NpgsqlCommand(sql, conn);
 
             
 
             if (filmSearchCombo.Text == "Title")
             {
-                sql = "select * from film_list where title like '%" + filmSearchTxtBox.Text + "%'";
+                sql = "select * from public.film_list where title like '%" + filmSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (filmSearchCombo.Text == "Category")
             {
-                sql = "select * from film_list where category like '%" + filmSearchTxtBox.Text + "%'";
+                sql = "select * from public.film_list where category like '%" + filmSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (filmSearchCombo.Text == "Release Year")
             {
-                sql = "select * from film_list where \"Release Year\" = " + filmSearchTxtBox.Text + "";
+                sql = "select * from public.film_list where \"Release Year\" = " + filmSearchTxtBox.Text + "";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (filmSearchCombo.Text == "Rating")
             {
-                sql = "select * from film_list where rating like '%" + filmSearchTxtBox.Text + "%'";
+                sql = "select * from public.film_list where rating like '%" + filmSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
@@ -217,7 +217,7 @@ namespace DBMS
             }
             if (filmSearchCombo.Text == "Actor Last Name")
             {
-                sql = "select * from film_list where \"Actor Last Name\" like '%" + filmSearchTxtBox.Text + "%'";
+                sql = "select * from public.film_list where \"Actor Last Name\" like '%" + filmSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
             }
             DataTable dt3 = new DataTable();
@@ -228,56 +228,56 @@ namespace DBMS
 
         private void cSearchBtn_Click(object sender, EventArgs e)
         {
-            sql = "select * from customer_list";
+            sql = "select * from public.customer_list";
             cmd = new NpgsqlCommand(sql, conn);
             
 
 
             if (customerSearchCombo.Text == "First Name")
             {
-                sql = "select * from customer_list where \"First Name\" like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where \"First Name\" like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Last Name")
             {
-                sql = "select * from customer_list where \"Last Name\" like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where \"Last Name\" like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Email")
             {
-                sql = "select * from customer_list where email like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where email like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Address")
             {
-                sql = "select * from customer_list where address like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where address like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Zip Code")
             {
-                sql = "select * from customer_list where \"zip code\" like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where \"zip code\" like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Phone")
             {
-                sql = "select * from customer_list where phone like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where phone like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "City")
             {
-                sql = "select * from customer_list where city like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where city like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }
             if (customerSearchCombo.Text == "Country")
             {
-                sql = "select * from customer_list where country like '%" + customerSearchTxtBox.Text + "%'";
+                sql = "select * from public.customer_list where country like '%" + customerSearchTxtBox.Text + "%'";
                 cmd = new NpgsqlCommand(sql, conn);
                 
             }

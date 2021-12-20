@@ -22,7 +22,7 @@ namespace DBMS
 
         private NpgsqlConnection conn;
         string connString = String.Format("Server={0};Port={1};" +
-            "User Id={2};Password={3};Database={4};", "localhost", "5432", "postgres", "1234", "Final Sample");
+            "User Id={2};Password={3};Database={4};", "localhost", "5432", "postgres", "1234", "Test");
         private NpgsqlCommand cmd;
         private string sql = null;
 
@@ -39,7 +39,7 @@ namespace DBMS
             {
                 conn.Open();
 
-                sql = @"select * from u_login(:_username,:_password)";
+                sql = @"select * from public.u_login(:_username,:_password)";
                 cmd = new NpgsqlCommand(sql, conn);
                 
                 cmd.Parameters.AddWithValue("_username", usernameTxtBox.Text);
