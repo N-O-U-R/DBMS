@@ -117,6 +117,7 @@ namespace DBMS
             this.label16 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cSearchBtn = new System.Windows.Forms.Button();
             this.customerSearchTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -125,7 +126,6 @@ namespace DBMS
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.cDeleteBtn = new System.Windows.Forms.Button();
-            this.cSearchBtn = new System.Windows.Forms.Button();
             this.tabpages.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -1058,6 +1058,16 @@ namespace DBMS
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search";
             // 
+            // cSearchBtn
+            // 
+            this.cSearchBtn.Location = new System.Drawing.Point(129, 127);
+            this.cSearchBtn.Name = "cSearchBtn";
+            this.cSearchBtn.Size = new System.Drawing.Size(132, 41);
+            this.cSearchBtn.TabIndex = 20;
+            this.cSearchBtn.Text = "Search";
+            this.cSearchBtn.UseVisualStyleBackColor = true;
+            this.cSearchBtn.Click += new System.EventHandler(this.cSearchBtn_Click);
+            // 
             // customerSearchTxtBox
             // 
             this.customerSearchTxtBox.Location = new System.Drawing.Point(104, 86);
@@ -1145,16 +1155,6 @@ namespace DBMS
             this.cDeleteBtn.UseVisualStyleBackColor = true;
             this.cDeleteBtn.Click += new System.EventHandler(this.cDeleteBtn_Click);
             // 
-            // cSearchBtn
-            // 
-            this.cSearchBtn.Location = new System.Drawing.Point(129, 127);
-            this.cSearchBtn.Name = "cSearchBtn";
-            this.cSearchBtn.Size = new System.Drawing.Size(132, 41);
-            this.cSearchBtn.TabIndex = 20;
-            this.cSearchBtn.Text = "Search";
-            this.cSearchBtn.UseVisualStyleBackColor = true;
-            this.cSearchBtn.Click += new System.EventHandler(this.cSearchBtn_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1163,6 +1163,7 @@ namespace DBMS
             this.ClientSize = new System.Drawing.Size(1218, 623);
             this.Controls.Add(this.tabpages);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
